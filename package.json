@@ -4,24 +4,25 @@
   "description": "CLI interface for library changes.",
   "main": "lib/cli.js",
   "scripts": {
-    "test": "standard src/**/*.js && npm run build && mocha --compilers js:babel-register",
+    "test": "standard src/**/*.js && npm run build && mocha --compilers js:babel-register --timeout 5000",
     "build": "babel src -d lib"
   },
   "author": "Maximilian Klein",
   "license": "MIT",
   "dependencies": {
     "@buggyorg/graphtools": "^0.4.0-pre.7",
-    "@buggyorg/library-client": "^0.4.1",
+    "@buggyorg/library-client": "^0.4.2",
     "cli-ext": "^1.0.0",
     "yargs": "^6.4.0"
   },
   "devDependencies": {
-    "@buggyorg/library-fileserver": "^0.4.1",
+    "@buggyorg/library-fileserver": "^0.4.2",
     "babel-cli": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
+    "get-port": "^2.1.0",
     "mocha": "^3.1.2",
     "standard": "^8.5.0"
   }
