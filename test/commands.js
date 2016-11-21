@@ -54,7 +54,7 @@ describe('CLI Commands', () => {
       expect(noServer()
       .then(() => runCLI('add',
         {componentId: 'a', atomic: true, version: '0.1.0', ports: [{port: 'a', kind: 'input', type: 'generic'}]})))
-        .to.be.rejected)
+        .to.be.rejectedWith(/Unable to connect/))
   })
 
   describe('`list`', () => {
@@ -73,6 +73,23 @@ describe('CLI Commands', () => {
     it('Returns an error code when no server is running', () =>
       expect(noServer()
       .then(() => runCLI('list')))
-      .to.be.rejected)
+      .to.be.rejectedWith(/Unable to connect/))
+  })
+
+  describe('`search`', () => {
+    it('Finds a component by id', () =>
+      expect(initServer({components: [
+        {componentId: 'compID', atomic: true, version: '0.1.0', ports: [{port: 'a', kind: 'input', type: 'generic'}]}]})
+      .then(() => runCLI('search com'))).to.eventually.match(/compID/))
+
+    it('Returns an error code when no component matches the search string', () =>
+      expect(initServer({components: [
+        {componentId: 'compID', atomic: true, version: '0.1.0', ports: [{port: 'a', kind: 'input', type: 'generic'}]}]})
+      .then(() => runCLI('search dull'))).to.be.rejected)
+
+    it('Supports completion', () =>
+      expect(initServer({components: [
+        {componentId: 'autoCompID', atomic: true, version: '0.1.0', ports: [{port: 'a', kind: 'input', type: 'generic'}]}]})
+      .then(() => runCLI('search au'))).to.eventually.match(/autoCompID/))
   })
 })
