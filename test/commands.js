@@ -92,4 +92,20 @@ describe('CLI Commands', () => {
         {componentId: 'autoCompID', atomic: true, version: '0.1.0', ports: [{port: 'a', kind: 'input', type: 'generic'}]}]})
       .then(() => runCLI('search au'))).to.eventually.match(/autoCompID/))
   })
+
+  describe('`meta` (getting meta information)', () => {
+    it('Gets a list of meta information for a node', () =>
+      expect(initServer({
+        components: [{componentId: 'compID', atomic: true, version: '0.1.0', ports: [{port: 'a', kind: 'input', type: 'generic'}]}],
+        meta: {compID: {metaKey1: {value: 1, version: '0.1.0'}, metaKey2: {value: 2, version: '0.1.0'}}}})
+      .then(() => runCLI('addMeta compID metaKey1', 'value_for_1'))
+      .then(() => runCLI('addMeta compID metaKey2', 'value_for_2'))
+      .then(() => runCLI('meta compID'))).to.eventually.match(/metaKey1/).and.match(/metaKey2/))
+
+    it('Gets the value of a meta key', () =>
+      expect(initServer({
+        components: [{componentId: 'compID', atomic: true, version: '0.1.0', ports: [{port: 'a', kind: 'input', type: 'generic'}]}]})
+      .then(() => runCLI('addMeta compID metaKey1', 'value_for_1'))
+      .then(() => runCLI('meta compID metaKey1'))).to.eventually.match(/value_for_1/))
+  })
 })

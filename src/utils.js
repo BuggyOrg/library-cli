@@ -6,7 +6,7 @@ export function error (errorStr, command) {
   process.exit(1)
 }
 
-export const search = (server, query) => {
+export const searchNode = (server, query) => {
   return connect(server)
   .then((client) => client.components())
   .then((components) => components.filter((cmp) => cmp.indexOf(query) === 0))

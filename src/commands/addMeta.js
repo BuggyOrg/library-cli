@@ -15,7 +15,7 @@ export const builder = (yargs) => {
   })
 }
 export const handler = (argv) => {
-  console.log('Meta information ' + argv.key + ' for ' + argv.node)
+  console.log('Meta information ' + argv.key + ' for component `' + argv.component + '`')
   return connect(argv.server)
   .then((con) => input(null)
     .then((contents) => con.addMeta(argv.component, argv.key, contents, argv.version)))

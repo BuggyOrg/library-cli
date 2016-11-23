@@ -2,19 +2,19 @@
 import {connect} from '@buggyorg/library-client'
 import {error, searchNode} from '../utils'
 
-export const command = 'meta <component> <key> [version]'
+export const command = 'meta <component> [key] [version]'
 export const desc = 'Get a meta key for a component'
 export const builder = (yargs) => {
   return yargs.completion('', (current, argv) => {
     if (current === 'search') return []
-    if (argv._.length === 4) {
+    if (argv._[argv._.length - 2] === 'search') {
       return searchNode(argv.server, current)
     }
     return
   })
 }
 export const handler = (argv) => {
-  console.log('Meta information ' + argv.key + ' for ' + argv.node)
+  console.log('Meta information ' + ((argv.key) ? argv.key : '') + ' for component `' + argv.component + '`')
   return connect(argv.server)
   .then((con) => con.meta(argv.component, argv.key, argv.version))
   .then((meta) => console.log(meta))

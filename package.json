@@ -4,7 +4,7 @@
   "description": "CLI interface for library changes.",
   "main": "lib/cli.js",
   "scripts": {
-    "test": "standard src/**/*.js && npm run build && mocha --compilers js:babel-register --timeout 5000",
+    "test": "standard src/**/*.js && npm run build && mocha --compilers js:babel-register --timeout 15000",
     "build": "babel src -d lib"
   },
   "author": "Maximilian Klein",
