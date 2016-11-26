@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "CLI interface for library changes.",
   "main": "lib/cli.js",
+  "bin" : {
+    "buggy-library": "lib/cli.js"
+  },
   "scripts": {
     "test": "standard src/**/*.js && npm run build && mocha --compilers js:babel-register --timeout 15000",
     "build": "babel src -d lib"
