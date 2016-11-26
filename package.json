@@ -1,9 +1,9 @@
 {
   "name": "@buggyorg/library-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI interface for library changes.",
   "main": "lib/cli.js",
-  "bin" : {
+  "bin": {
     "buggy-library": "lib/cli.js"
   },
   "scripts": {
