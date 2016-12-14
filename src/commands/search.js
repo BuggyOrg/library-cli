@@ -10,7 +10,7 @@ export const builder = (yargs) => {
   })
 }
 export const handler = (argv) => {
-  console.log('Searching for ' + argv.query)
+  console.log('Searching for ' + argv.query + ' [' + argv.library + ']')
   return searchNode(argv.library, argv.query)
   .then((res) => {
     if (res.length === 0) return Promise.reject('No component found that matches "' + argv.query + '"')
