@@ -6,12 +6,12 @@ export const desc = 'Search a component'
 export const builder = (yargs) => {
   return yargs.completion('', (current, argv) => {
     if (current === 'search') return []
-    return searchNode(argv.server, current)
+    return searchNode(argv.library, current)
   })
 }
 export const handler = (argv) => {
   console.log('Searching for ' + argv.query)
-  return searchNode(argv.server, argv.query)
+  return searchNode(argv.library, argv.query)
   .then((res) => {
     if (res.length === 0) return Promise.reject('No component found that matches "' + argv.query + '"')
     console.log(res)

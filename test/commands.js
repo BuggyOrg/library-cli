@@ -12,7 +12,7 @@ var testPort = 12458
 
 const runCLI = (args, data) => {
   return new Promise((resolve, reject) => {
-    var cli = exec('node lib/cli --server http://localhost:' + testPort + ' ' + args,
+    var cli = exec('node lib/cli --library http://localhost:' + testPort + ' ' + args,
       (error, stdout, stderr) => {
         if (error) {
           reject(stderr)

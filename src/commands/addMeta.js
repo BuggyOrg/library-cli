@@ -9,14 +9,14 @@ export const builder = (yargs) => {
   return yargs.completion('', (current, argv) => {
     if (current === 'search') return []
     if (argv._.length === 4) {
-      return searchNode(argv.server, current)
+      return searchNode(argv.library, current)
     }
     return
   })
 }
 export const handler = (argv) => {
   console.log('Meta information ' + argv.key + ' for component `' + argv.component + '`')
-  return connect(argv.server)
+  return connect(argv.library)
   .then((con) => input(null)
     .then((contents) => con.addMeta(argv.component, argv.key, contents, argv.version)))
   .then(() => console.log('Added meta information successfully.'))

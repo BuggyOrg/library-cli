@@ -26,7 +26,7 @@ const defaultComponent = {
 export const command = 'add'
 export const desc = 'Add a new component.'
 export const handler = (argv) => {
-  return Promise.resolve(connect(argv.server))
+  return Promise.resolve(connect(argv.library))
   .then((client) => input(null, {verify: allPass([isJSON, compose(Component.isValid, JSON.parse)]),
     defaultContent: JSON.stringify(defaultComponent, null, 2)})
     .then((component) => client.addComponent(JSON.parse(component))))

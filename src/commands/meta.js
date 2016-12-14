@@ -8,14 +8,14 @@ export const builder = (yargs) => {
   return yargs.completion('', (current, argv) => {
     if (current === 'search') return []
     if (argv._[argv._.length - 2] === 'search') {
-      return searchNode(argv.server, current)
+      return searchNode(argv.library, current)
     }
     return
   })
 }
 export const handler = (argv) => {
   console.log('Meta information ' + ((argv.key) ? argv.key : '') + ' for component `' + argv.component + '`')
-  return connect(argv.server)
+  return connect(argv.library)
   .then((con) => con.meta(argv.component, argv.key, argv.version))
   .then((meta) => console.log(meta))
   .catch((err) => error(err, command))

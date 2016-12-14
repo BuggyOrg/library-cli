@@ -9,8 +9,8 @@ yargs
   .version(() => {
     return require('../package.json').version
   })
-  .global('server')
-  .option('server', {alias: 's', describe: 'Set the library hosting server.', default: libraryServer})
+  .global('library')
+  .option('library', {alias: 'l', describe: 'Set the library hosting server.', default: libraryServer})
   .commandDir('commands')
   .demand(1)
   .usage('Buggy library CLI [version ' + require('../package.json').version + ']')
