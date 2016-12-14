@@ -16,6 +16,7 @@ export const builder = (yargs) => {
 }
 export const handler = (argv) => {
   console.log('Meta information ' + argv.key + ' for component `' + argv.component + '` [' + argv.library + ']')
+  return connect(argv.library)
   .then((con) => input(null)
     .then((contents) => con.addMeta(argv.component, argv.key, contents, argv.version)))
   .then(() => console.log('Added meta information successfully.'))
