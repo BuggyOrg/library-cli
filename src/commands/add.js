@@ -26,10 +26,17 @@ const defaultComponent = {
 export const command = 'add'
 export const desc = 'Add a new component.'
 export const handler = (argv) => {
+  var jsonVerify = allPass([isJSON, compose(Component.isValid, JSON.parse)])
+  var conv = JSON.parse
+  if (argv.___toPortgraph___) {
+    conv = argv.___toPortgraph___.call
+    jsonVerify = compose(Component.isValid, conv)
+  }
   return Promise.resolve(connect(argv.library))
-  .then((client) => input(null, {verify: allPass([isJSON, compose(Component.isValid, JSON.parse)]),
+  .then((client) => input(null, {verify: jsonVerify,
     defaultContent: JSON.stringify(defaultComponent, null, 2)})
-    .then((component) => client.addComponent(JSON.parse(component)).then(() => component)))
+    .then(conv)
+    .then((component) => client.addComponent(component).then(() => component)))
     .then((component) => console.log('Successfully added component "' + component.componentId + '". [' + argv.library + ']'))
   .catch((err) => error(err, command))
 }
