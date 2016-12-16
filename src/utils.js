@@ -6,7 +6,7 @@ export function error (errorStr, command, data) {
     if (/409/.test(errorStr) && data) {
       console.error('Could not insert component "' + data.componentId + '". The component already exists in the database.')
       process.exit(1)
-    } else {
+    } else if (data) {
       console.error('Could not insert malformed component: \n ' + JSON.stringify(data, null, 2))
       process.exit(1)
     }
