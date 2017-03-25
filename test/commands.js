@@ -12,7 +12,7 @@ var testPort = 12458
 
 const runCLI = (args, data) => {
   return new Promise((resolve, reject) => {
-    var cli = exec('node lib/cli --library http://localhost:' + testPort + ' ' + args,
+    var cli = exec('node lib/cli -q --library http://localhost:' + testPort + ' ' + args,
       (error, stdout, stderr) => {
         if (error) {
           reject(stderr)
@@ -106,5 +106,13 @@ describe('CLI Commands', () => {
         components: [{componentId: 'compID', atomic: true, version: '0.1.0', ports: [{port: 'a', kind: 'input', type: 'generic'}]}]})
       .then(() => runCLI('add-meta compID metaKey1', 'value_for_1'))
       .then(() => runCLI('meta compID metaKey1'))).to.eventually.match(/value_for_1/))
+  })
+
+  describe('`show`', () => {
+    it('Gets the contents of a component', () => {
+      const comp = {componentId: 'compID', atomic: true, version: '0.1.0', ports: [{port: 'a', kind: 'input', type: 'generic'}]}
+      return expect(initServer({components: [comp]})
+        .then(() => runCLI('show compID').then((str) => JSON.parse(str)))).to.eventually.eql(comp)
+    })
   })
 })
