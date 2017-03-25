@@ -1,6 +1,6 @@
 
 import {connect} from '@buggyorg/library-client'
-import {error, searchNode} from '../utils'
+import {error, searchNode, log} from '../utils'
 
 export const command = 'show'
 export const desc = 'Shows the definition of a component.'
@@ -13,15 +13,15 @@ export const builder = (yargs) => {
   .demand(1)
 }
 export const handler = (argv) => {
-  console.log('Showing component:', argv._[2])
+  log(argv, 'Showing component:', argv._[1])
   return Promise.resolve(connect(argv.library))
-  .then((client) => client.component(argv._[2]))
+  .then((client) => client.component(argv._[1]))
   .then((res) => {
     if (argv.prettyprint) {
       console.log(JSON.stringify(res, null, 2))
     } else {
-      console.log(res)
+      console.log(JSON.stringify(res))
     }
   })
-  .catch((err) => error(err, 'search'))
+  .catch((err) => error(err, 'show'))
 }

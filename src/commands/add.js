@@ -3,7 +3,7 @@ import {input} from 'cli-ext'
 import * as Graph from '@buggyorg/graphtools'
 import {allPass, compose} from 'lodash/fp'
 import {connect} from '@buggyorg/library-client'
-import {error} from '../utils'
+import {error, log} from '../utils'
 
 const Component = Graph.Component
 
@@ -39,6 +39,6 @@ export const handler = (argv) => {
     .then(conv)
     .then((component) => (cmp = component))
     .then((component) => client.addComponent(component).then(() => component))
-    .then((component) => console.log('Successfully added component "' + component.componentId + '". [' + argv.library + ']')))
+    .then((component) => log(argv, 'Successfully added component "' + component.componentId + '". [' + argv.library + ']')))
   .catch((err) => error(err, command, cmp))
 }

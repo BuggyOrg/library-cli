@@ -20,3 +20,9 @@ export const searchNode = (server, query) => {
   .then((client) => client.components())
   .then((components) => components.filter((cmp) => cmp.indexOf(query) === 0))
 }
+
+export function log (argv, ...args) {
+  if (!argv.quiet) {
+    console.log(...args)
+  }
+}

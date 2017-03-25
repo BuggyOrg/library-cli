@@ -1,6 +1,6 @@
 
 import {connect} from '@buggyorg/library-client'
-import {error, searchNode} from '../utils'
+import {error, searchNode, log} from '../utils'
 import {input} from 'cli-ext'
 
 export const command = 'add-meta <component> <key>'
@@ -15,7 +15,7 @@ export const builder = (yargs) => {
   })
 }
 export const handler = (argv) => {
-  console.log('Meta information ' + argv.key + ' for component `' + argv.component + '` [' + argv.library + ']')
+  log(argv, 'Meta information ' + argv.key + ' for component `' + argv.component + '` [' + argv.library + ']')
   return connect(argv.library)
   .then((con) => input(null)
     .then((contents) => con.addMeta(argv.component, argv.key, contents, argv.version)))

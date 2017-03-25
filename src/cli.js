@@ -9,6 +9,8 @@ yargs
   .version(() => {
     return require('../package.json').version
   })
+  .global('quiet')
+  .option('quiet', {alias: 'q', describe: 'Only print data no clutter.', default: false})
   .global('library')
   .option('library', {alias: 'l', describe: 'Set the library hosting server.', default: libraryServer})
   .commandDir('commands')
